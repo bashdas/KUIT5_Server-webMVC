@@ -1,0 +1,18 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<c:choose>
+    <c:when test="${not empty sessionScope.user}">
+        <!-- 온라인 상태 -->
+        <%--        <div class="d-flex justify-content-end align-items-center gap-2">--%>
+        <a href="/user/logout" type="button" class="btn btn-outline-primary me-2">LogOut</a>
+        <a href="/user/update?userId=${sessionScope.user.userId}" type="button" class="btn btn-primary">개인정보 수정</a>
+        <%--        </div>--%>
+    </c:when>
+    <c:otherwise>
+        <!-- 오프라인 상태 -->
+        <a href="/user/login.jsp" type="button" class="btn btn-outline-primary me-2">Login</a>
+        <a href="/user/form.jsp" type="button" class="btn btn-primary">Sign-up</a>
+    </c:otherwise>
+</c:choose>
