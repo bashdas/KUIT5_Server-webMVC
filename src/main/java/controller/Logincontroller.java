@@ -14,6 +14,8 @@ import jwp.model.User;
 
 import java.io.IOException;
 
+import static controller.SessionKey.USER_SESSION_KEY;
+
 @WebServlet("/user/login")
 public class Logincontroller extends HttpServlet {
     Repository repository = MemoryUserRepository.getInstance();
@@ -33,7 +35,7 @@ public class Logincontroller extends HttpServlet {
 
         // 로그인 성공하면 세션에 저장
         HttpSession session = req.getSession();
-        session.setAttribute("user", userData);
+        session.setAttribute(USER_SESSION_KEY.getKey(), userData);
 
         resp.sendRedirect("/");
     }
@@ -46,7 +48,7 @@ public class Logincontroller extends HttpServlet {
         String userId=req.getParameter("userId");
         User userData = repository.findUserById(userId);
 
-        req.setAttribute("user",userData);
+        req.setAttribute("users",userData);
 
         RequestDispatcher rd = req.getRequestDispatcher("/user/updateForm.jsp");
         rd.forward(req, resp);
